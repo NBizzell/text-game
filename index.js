@@ -79,11 +79,11 @@ class Character {
     }
 
     describeChar() {
-        return this._description
+        return this._description;
     }
 
     nameChar() {
-        return this._name
+        return this._name;
     }
 
     linkRoom(direction, Room) {
@@ -111,6 +111,7 @@ class Item {
 
 }
 //adding characters
+
 const Dragon = new Character("Dragon", "Baby Dragon",
     "In the corner you can see a baby dragon, swinging hungrily from a coat hanger attached to a mannequin, which is T-posing and wearing a fedora.",
     "Pantry",
@@ -139,7 +140,10 @@ const Lady = new Threat("Lady", "The Lady",
     "Salvation",
     "As you move carelessly towards the Lady, you feel your senses become hazy. You collapse, and the world goes out like a snuffed candle.",
     "As you move compassionately towards the Lady, you feel a great weight pressing down on your body. After a moment it eases, then lifts. Close to, she wears a mischievous smile.")
+
 //adding rooms
+//although it looks like this is adding an object to the propety it is being treated as a string.
+//have a look at the way characters are added to rooms in the example.
 const Kitchen = new Room("Big Kitchen", "First constructed just after the sky fell down, the kitchen has an extremely well-reinforced ceiling.", Cook)
 const Garden = new Room("Rooftop Garden", "Sadly, the rooftop garden did not survive what happened fifty years ago. The stonework was reduced to rubble, the plants were transformed into a fine grey mist, and even the soil became a light salmon-pink slurry. Today, it serves only to house the Lady\'s expansive collection of dead butterflies reanimated through ingenious clockwork mechanisms. At the far end you can see a woman.", Lady)
 const Amphitheatre = new Room("Amphitheatre", "A huge arena gone to seed. Because of its location on the outskirts of the safe zone, its stonework has suffered in the acid rain, and most of its seats and balustrades have simply fallen apart under their own weight. As you stand there staring, a huge, winged shadow passes overhead.", Amphiptere)
@@ -160,7 +164,7 @@ Amphitheatre.exitText("north", "The amphiptere takes off in a great cloud of smo
 Amphitheatre.exitText("south", "Turning your back on the desolate, foggy sight of the amphitheatre, you take the rickety old lift back to the kitchen.")
 Garden.exitText("south", "Your steed awaits. The amphiptere glides gently towards the ground, and places you gently in the amphitheatre where it makes its home.")
 
-currentChar = Cook;
+// currentChar = Cook;
 
 function pressStart() {
     currentRoom = Pantry;
@@ -225,18 +229,21 @@ function navErrorHide() {
 //displayCharInfo displays description of currentChar
 //Each of these works independently, but having both of them present gives a TypeError: currentChar.describeChar is not a function
 
+//commented out as two functions named the same causes issues, when using a HTML front end don't use nodemon, just check result in the browser and use chrome dev tools to see the console.
+
 //version of displayCharInfo that outputs to console rather than document (document ref currently crashing nodemon)
-function displayCharInfo(currentChar) {
-    textContent = currentChar.describeChar();
-    console.log(textContent);
-}
-//copy of updateChar for convenience
-function updateChar(room) {
-    currentChar = room.getChar();
-    console.log("This room's character is:", currentChar)
-}
+// function displayCharInfo(currentChar) {
+//     console.log(currentChar)
+//     textContent = currentChar.describeChar();
+//     console.log(textContent);
+// }
+// //copy of updateChar for convenience
+// function updateChar(room) {
+//     currentChar = room.getChar();
+//     console.log("This room's character is:", currentChar)
+// }
 
 currentRoom = Pantry;
 currentChar = Lady;
-updateChar(currentRoom) //should change currentChar to Dragon
+updateChar(currentRoom) //should change currentChar to Dragon - it does (line 242 not needed) but the room propety _cher is a string and not an object
 displayCharInfo(currentChar) //should display currentChar description
